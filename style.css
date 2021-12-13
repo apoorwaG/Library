@@ -8,3 +8,11 @@
     display: flex;
     flex-direction: column;
 }
+
+button.read {
+    background-color: green;
+}
+
+button.unread {
+    background-color: red;
+}
