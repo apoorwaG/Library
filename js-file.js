@@ -45,6 +45,13 @@ function addBookToLibrary() {
 
 function removeBook(event) {
     console.log(event.target);
+    const bookSection = document.querySelector(".books");
+    const bookIndex = +event.target.getAttribute("book-index");
+    console.log(bookIndex);
+    const book = event.target.parentNode;
+    myLibrary.splice(bookIndex, 1);
+    console.log(myLibrary);
+    bookSection.removeChild(book);
     
 }
 
