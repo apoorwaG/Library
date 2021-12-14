@@ -4,6 +4,10 @@
     flex-wrap: wrap;
 }
 
+.header {
+    background-color: indianred;
+}
+
 .book{
     display: flex;
     flex-direction: column;
@@ -15,4 +19,11 @@ button.read {
 
 button.unread {
     background-color: red;
+}
+
+.add_form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    align-items: center;
 }

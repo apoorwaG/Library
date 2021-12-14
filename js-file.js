@@ -7,10 +7,7 @@ function Book(title, author, numPages, readStatus) {
 }
 
 Book.prototype.info = function() {
-    if(this.readStatus === true) {
-        return `${this.title} by ${this.author}, ${this.numPages} pages, read the book`
-    }
-    return `${this.title} by ${this.author}, ${this.numPages} pages, not read yet`
+    return `${this.title} by ${this.author}, ${this.numPages} pages`;
 }
 
 Book.prototype.changeStatus = function() {
@@ -20,6 +17,7 @@ Book.prototype.changeStatus = function() {
 
 
 let myLibrary = [];
+
 const book1 = new Book("Man's Search For Meaning", "Viktor E. Frankl", 165, false);
 const book2 = new Book("Just Mercy", "Bryan Stevenson", 200, true);
 const book3 = new Book("Dune", "Frank Herberta", 465, false);
@@ -27,35 +25,39 @@ const book4 = new Book("Dune", "Frank Herbertb", 465, false);
 const book5 = new Book("Dune", "Frank Herbertc", 465, false);
 const book6 = new Book("Dune", "Frank Herbertd", 465, false);
 
-function addBookToLibrary() {
+const books = [book1, book2, book3, book4, book5, book6]
+books.forEach(addBookToLibrary);
 
-    myLibrary.push(book1, book2, book3, book4, book5, book6);
+function addBookToLibrary(newBook) {
+    
+    myLibrary.push(newBook);
     const bookSection = document.querySelector(".books");
-    for(let i = 0; i < myLibrary.length; i++){
-        const book = document.createElement("div");
-        book.classList.add("book");
-        book.setAttribute('style', `height: 300px; width: 200px; border: 2px solid black; border-radius: 2px; padding: 10px;`);
-        book.textContent = myLibrary[i].info();
 
-        const deleteButton = document.createElement("button")
-        deleteButton.classList.add("remove")
-        deleteButton.setAttribute("book-index", `${i}`);
-        deleteButton.textContent = "Remove";
-        book.appendChild(deleteButton);
+    const book = document.createElement("div");
+    book.classList.add("book");
+    book.setAttribute('style', `height: 300px; width: 200px; border: 2px solid black; border-radius: 2px; padding: 10px;`);
+    book.textContent = newBook.info();
 
-        const statusButton = document.createElement("button");
-        statusButton.classList.add("status");
-        statusButton.setAttribute("book-index", `${i}`);
-        statusButton.textContent = myLibrary[i].readStatus === true? "Read" : "Unread";
-        if(myLibrary[i].readStatus === true) statusButton.classList.add('read');
-        else statusButton.classList.add('unread');
-        statusButton.addEventListener('click', toggleReadStatus);
-        book.appendChild(statusButton);
+    const deleteButton = document.createElement("button")
+    deleteButton.classList.add("remove")
+    deleteButton.setAttribute("book-index", `${myLibrary.length - 1}`);
+    deleteButton.textContent = "Remove";
+    deleteButton.addEventListener('click', removeBook);
+    book.appendChild(deleteButton);
+
+    const statusButton = document.createElement("button");
+    statusButton.classList.add("status");
+    statusButton.setAttribute("book-index", `${myLibrary.length - 1}`);
+    statusButton.textContent = newBook.readStatus === true? "Read" : "Unread";
+    if(newBook.readStatus === true) statusButton.classList.add('read');
+    else statusButton.classList.add('unread');
+    statusButton.addEventListener('click', toggleReadStatus);
+    book.appendChild(statusButton);
 
 
-        bookSection.appendChild(book);
+    bookSection.appendChild(book);
 
-    }
+    
 
 }
 
@@ -81,11 +83,43 @@ function toggleReadStatus(event) {
     }
 
     myLibrary[bookIndex].changeStatus();
+    console.log(myLibrary);
+}
+
+function toggleForm(event) {
+    const addForm = document.querySelector(".add_form");
+    if(addForm.style.display === "none"){
+        addForm.style.display = "flex";
+    }
+    else{
+        addForm.style.display = "none";
+    }
+}
+
+function addBook(event) {
+    const form = event.target.parentNode;
+    const bookName = form.querySelector('#bookName').value;
+    const authorName = form.querySelector("#authorName").value;
+    const numPages = form.querySelector("#numPages").value;
+    if(bookName === "" || authorName === "") {
+        alert("Fields cannot be left empty!");
+        return;
+    }
+    if(+numPages < 1 || +numPages > 5000) {
+        alert("Number of pages must be between 1 and 5000.");
+        return
+    }
+    const newBook = new Book(bookName, authorName, +numPages, false);
+    addBookToLibrary(newBook);
+    toggleForm(event);
 
 }
 
+const newButton = document.querySelector("button.newBook");
+newButton.addEventListener('click', toggleForm);
+const cancelButton = document.querySelector("button.cancel");
+cancelButton.addEventListener('click', toggleForm);
 
-addBookToLibrary();
 
-const removeButtons = document.querySelectorAll("button.remove");
-removeButtons.forEach(button => button.addEventListener('click', removeBook));
+const addEntry = document.querySelector('.addEntry');
+addEntry.addEventListener('click', addBook);
