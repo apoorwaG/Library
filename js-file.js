@@ -3,7 +3,6 @@ function Book(title, author, numPages, readStatus) {
     this.author = author;
     this.numPages = numPages;
     this.readStatus = readStatus;
-
 }
 
 Book.prototype.info = function() {
@@ -20,13 +19,37 @@ let myLibrary = [];
 
 const book1 = new Book("Man's Search For Meaning", "Viktor E. Frankl", 165, false);
 const book2 = new Book("Just Mercy", "Bryan Stevenson", 200, true);
-const book3 = new Book("Dune", "Frank Herberta", 465, false);
-const book4 = new Book("Dune", "Frank Herbertb", 465, false);
-const book5 = new Book("Dune", "Frank Herbertc", 465, false);
-const book6 = new Book("Dune", "Frank Herbertd", 465, false);
+const book3 = new Book("Dune", "Frank Herbert", 465, false);
 
-const books = [book1, book2, book3, book4, book5, book6]
+const books = [book1, book2, book3]
 books.forEach(addBookToLibrary);
+
+// index is the position of the book in the array
+function addDeleteButton(bookButtons, index) {
+    const deleteButton = document.createElement("button")
+    deleteButton.classList.add("remove")
+    deleteButton.setAttribute("data-book-index", `${index}`);
+    deleteButton.textContent = "Remove";
+    deleteButton.addEventListener('click', removeBook);
+    bookButtons.appendChild(deleteButton);
+
+    return bookButtons;
+}
+
+// index is the position of the book in the array
+function addStatusButton(bookButtons, index, newBook) {
+    const statusButton = document.createElement("button");
+    statusButton.classList.add("status");
+    statusButton.setAttribute("data-book-index", `${index}`);
+    statusButton.textContent = newBook.readStatus === true? "Read" : "Unread";
+    if(newBook.readStatus === true) statusButton.classList.add('read');
+    else statusButton.classList.add('unread');
+    statusButton.addEventListener('click', toggleReadStatus);
+    bookButtons.appendChild(statusButton);
+
+    return bookButtons;
+
+}
 
 function addBookToLibrary(newBook) {
     
@@ -37,41 +60,42 @@ function addBookToLibrary(newBook) {
     book.classList.add("book");
     book.textContent = newBook.info();
 
-    const bookButtons = document.createElement("div");
+    let bookButtons = document.createElement("div");
+    bookButtons.classList.add("bookButtons");
 
-    const deleteButton = document.createElement("button")
-    deleteButton.classList.add("remove")
-    deleteButton.setAttribute("book-index", `${myLibrary.length - 1}`);
-    deleteButton.textContent = "Remove";
-    deleteButton.addEventListener('click', removeBook);
-    bookButtons.appendChild(deleteButton);
-
-    const statusButton = document.createElement("button");
-    statusButton.classList.add("status");
-    statusButton.setAttribute("book-index", `${myLibrary.length - 1}`);
-    statusButton.textContent = newBook.readStatus === true? "Read" : "Unread";
-    if(newBook.readStatus === true) statusButton.classList.add('read');
-    else statusButton.classList.add('unread');
-    statusButton.addEventListener('click', toggleReadStatus);
-    bookButtons.appendChild(statusButton);
+    bookButtons = addDeleteButton(bookButtons, myLibrary.length - 1);
+    bookButtons = addStatusButton(bookButtons, myLibrary.length - 1, newBook);
 
     book.appendChild(bookButtons);
+
+    // book.addEventListener('mouseover', visitBook, {capture:true});
+    // book.addEventListener('mouseleave', leaveBook, {capture:true});
 
     bookSection.appendChild(book);
 
 }
 
+function visitBook(event) {
+    event.target.style.background = "rgba(68, 170, 253, 0.911)";
+    event.stopPropagation();
+}
+
+function leaveBook(event) {
+    event.target.style.background = "";
+    event.stopPropagation();
+}
+
+
 function removeBook(event) {
     const bookSection = document.querySelector(".books");
-    const bookIndex = +event.target.getAttribute("book-index");
-    const book = event.target.parentNode;
-    // myLibrary.splice(bookIndex, 1);
+    const bookIndex = +event.target.getAttribute("data-book-index");
+    const book = (event.target.parentNode).parentNode;
     delete myLibrary[bookIndex];
     bookSection.removeChild(book);
 }
 
 function toggleReadStatus(event) {
-    const bookIndex = +event.target.getAttribute("book-index");
+    const bookIndex = +event.target.getAttribute("data-book-index");
     if(event.target.textContent === "Unread"){
         event.target.classList.remove("unread");
         event.target.classList.add("read");
@@ -118,9 +142,9 @@ function addBook(event) {
 
 const newButton = document.querySelector("button.newBook");
 newButton.addEventListener('click', toggleForm);
+
 const cancelButton = document.querySelector("button.cancel");
 cancelButton.addEventListener('click', toggleForm);
-
 
 const addEntry = document.querySelector('.addEntry');
 addEntry.addEventListener('click', addBook);

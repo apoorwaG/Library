@@ -41,6 +41,21 @@ button.newBook {
     border: 3px solid rgba(0, 0, 0, 0.521);
     border-radius: 3px;
     padding: 10px;
+    justify-content: space-between;
+}
+
+.book:hover {
+    transform: scale(1.1);
+}
+
+.book .bookButtons  {
+    height: 50px;
+    display: flex;
+}
+
+.bookButtons .remove,
+.bookButtons .status {
+    flex: 1 1 0;
 }
 
 button.read {
@@ -57,4 +72,8 @@ button.unread {
     align-items: center;
     width: 300px;
     align-self: center;
+}
+
+.special {
+    background-color: rgb(166, 236, 245);
 }
