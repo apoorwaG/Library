@@ -35,15 +35,16 @@ function addBookToLibrary(newBook) {
 
     const book = document.createElement("div");
     book.classList.add("book");
-    book.setAttribute('style', `height: 300px; width: 200px; border: 2px solid black; border-radius: 2px; padding: 10px;`);
     book.textContent = newBook.info();
+
+    const bookButtons = document.createElement("div");
 
     const deleteButton = document.createElement("button")
     deleteButton.classList.add("remove")
     deleteButton.setAttribute("book-index", `${myLibrary.length - 1}`);
     deleteButton.textContent = "Remove";
     deleteButton.addEventListener('click', removeBook);
-    book.appendChild(deleteButton);
+    bookButtons.appendChild(deleteButton);
 
     const statusButton = document.createElement("button");
     statusButton.classList.add("status");
@@ -52,12 +53,11 @@ function addBookToLibrary(newBook) {
     if(newBook.readStatus === true) statusButton.classList.add('read');
     else statusButton.classList.add('unread');
     statusButton.addEventListener('click', toggleReadStatus);
-    book.appendChild(statusButton);
+    bookButtons.appendChild(statusButton);
 
+    book.appendChild(bookButtons);
 
     bookSection.appendChild(book);
-
-    
 
 }
 
@@ -97,7 +97,8 @@ function toggleForm(event) {
 }
 
 function addBook(event) {
-    const form = event.target.parentNode;
+    const form = (event.target.parentNode).parentNode;
+    console.log(form);
     const bookName = form.querySelector('#bookName').value;
     const authorName = form.querySelector("#authorName").value;
     const numPages = form.querySelector("#numPages").value;

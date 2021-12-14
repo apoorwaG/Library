@@ -1,29 +1,60 @@
+body {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background: indianred;
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    font-size: 40px;
+    font-weight:bold;
+    padding: 20px;
+}
+
+button.newBook {
+    align-self: center;
+    margin-top: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+
 .books{
     display: flex;
     margin: 30px;
     flex-wrap: wrap;
-}
-
-.header {
-    background-color: indianred;
+    justify-content: center;
+    gap: 20px;
 }
 
 .book{
     display: flex;
     flex-direction: column;
+    height: 300px;
+    width: 200px;
+    border: 3px solid rgba(0, 0, 0, 0.521);
+    border-radius: 3px;
+    padding: 10px;
 }
 
 button.read {
-    background-color: green;
+    background-color: rgba(108, 255, 108, 0.89);
 }
 
 button.unread {
-    background-color: red;
+    background-color: rgb(255, 129, 129);
 }
 
 .add_form {
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
     align-items: center;
+    width: 300px;
+    align-self: center;
 }

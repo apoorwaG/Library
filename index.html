@@ -11,21 +11,27 @@
 <body>
 
     <div class="header">
-        <h1>My Library</h1>
+        <div class="logo">My Library</div>
     </div>
     
 
     <button class="newBook">New Book</button>
 
     <div class="add_form" style="display:none">
-        <label for="bookName">Name:</label>
-        <input type="text" id="bookName" name="bookName" required>
+        <div class="form-item">
+            <label for="bookName">Name:</label>
+            <input type="text" id="bookName" name="bookName" required>
+        </div>
 
-        <label for="authorName">Author:</label>
-        <input type="text" id="authorName" name="authorName" required>
+        <div class="form-item">
+            <label for="authorName">Author:</label>
+            <input type="text" id="authorName" name="authorName" required>
+        </div>
 
-        <label for="numPages">Pages:</label>
-        <input type="number" min="1" max="5000" id="numPages" name="numPages" required> 
+        <div class="form-item">
+            <label for="numPages">Pages:</label>
+            <input type="number" min="1" max="5000" id="numPages" name="numPages" required> 
+        </div>
 
         <div class = "actionButtons" style="margin-top: 5px;">
             <button class="cancel">Cancel</button>
