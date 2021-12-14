@@ -67,22 +67,8 @@ function addBookToLibrary(newBook) {
     bookButtons = addStatusButton(bookButtons, myLibrary.length - 1, newBook);
 
     book.appendChild(bookButtons);
-
-    // book.addEventListener('mouseover', visitBook, {capture:true});
-    // book.addEventListener('mouseleave', leaveBook, {capture:true});
-
     bookSection.appendChild(book);
 
-}
-
-function visitBook(event) {
-    event.target.style.background = "rgba(68, 170, 253, 0.911)";
-    event.stopPropagation();
-}
-
-function leaveBook(event) {
-    event.target.style.background = "";
-    event.stopPropagation();
 }
 
 
@@ -122,7 +108,6 @@ function toggleForm(event) {
 
 function addBook(event) {
     const form = (event.target.parentNode).parentNode;
-    console.log(form);
     const bookName = form.querySelector('#bookName').value;
     const authorName = form.querySelector("#authorName").value;
     const numPages = form.querySelector("#numPages").value;

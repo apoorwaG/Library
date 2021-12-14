@@ -6,7 +6,7 @@ body {
 }
 
 .header {
-    background: indianred;
+    background: rgb(98, 219, 128);
     display: flex;
     justify-content: center;
 }
@@ -19,9 +19,11 @@ body {
 
 button.newBook {
     align-self: center;
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 10px;
     margin-bottom: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size:20px;
 }
 
 
@@ -56,6 +58,8 @@ button.newBook {
 .bookButtons .remove,
 .bookButtons .status {
     flex: 1 1 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size:15px;
 }
 
 button.read {
@@ -67,11 +71,19 @@ button.unread {
 }
 
 .add_form {
-    display: flex;
     flex-direction: column;
-    align-items: center;
     width: 300px;
     align-self: center;
+}
+
+.form-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actionButtons {
+    align-self: center;
+    margin-top: 20px;
 }
 
 .special {
