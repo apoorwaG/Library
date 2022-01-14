@@ -1,18 +1,24 @@
-function Book(title, author, numPages, readStatus) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.readStatus = readStatus;
+class Book {
+    constructor(title, author, numPages, readStatus){
+        this.title = title;
+        this.author = author;
+        this.numPages = numPages;
+        this.readStatus = readStatus;
+    }
+
+    info() {
+        return `${this.title} by ${this.author}, ${this.numPages} pages`;
+    }
+
+    changeStatus() {
+        if(this.readStatus === false) 
+            this.readStatus = true;
+
+        else this.readStatus = false;
+    }
+
 }
 
-Book.prototype.info = function() {
-    return `${this.title} by ${this.author}, ${this.numPages} pages`;
-}
-
-Book.prototype.changeStatus = function() {
-    if(this.readStatus === false) this.readStatus = true;
-    else this.readStatus = false;
-}
 
 
 let myLibrary = [];
