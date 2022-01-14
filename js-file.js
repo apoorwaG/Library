@@ -16,9 +16,7 @@ class Book {
 
         else this.readStatus = false;
     }
-
 }
-
 
 
 let myLibrary = [];
